@@ -65,11 +65,11 @@ class Task(models.Model):
 
 Pour plus d'information sur les champs : 
 
-* [Options des champs](https://docs.djangoproject.com/fr/4.1/ref/models/fields/) 📖 ;
-* [Type des champs](https://docs.djangoproject.com/fr/4.1/ref/models/fields/#field-types) 📖 ;
-* [plusieurs-à-plusieurs](https://docs.djangoproject.com/fr/4.1/topics/db/examples/many_to_many/) 📖 ;
-* [plusieurs-à-un](https://docs.djangoproject.com/fr/4.1/topics/db/examples/many_to_one/) 📖 ;
-* [un-à-un](https://docs.djangoproject.com/fr/4.1/topics/db/examples/one_to_one/) 📖.
+* [Options des champs](https://docs.djangoproject.com/fr/6.1/ref/models/fields/) 📖 ;
+* [Type des champs](https://docs.djangoproject.com/fr/6.1/ref/models/fields/#field-types) 📖 ;
+* [plusieurs-à-plusieurs](https://docs.djangoproject.com/fr/6.1/topics/db/examples/many_to_many/) 📖 ;
+* [plusieurs-à-un](https://docs.djangoproject.com/fr/6.1/topics/db/examples/many_to_one/) 📖 ;
+* [un-à-un](https://docs.djangoproject.com/fr/6.1/topics/db/examples/one_to_one/) 📖.
 
 #### Activation du modèle et migrations
 
@@ -163,8 +163,8 @@ COMMIT;
 Notez les points suivants :
 
 * Ce que vous verrez dépendra de la base de données que vous utilisez. L'exemple ci-dessus est généré pour SQLite.
-* Les noms de tables sont générés automatiquement en combinant le nom de l'application (`developer`) et le nom du modèle en minuscules – `developer` et `task` (Les [meta-options du modèle](https://docs.djangoproject.com/en/4.1/ref/models/options/#db-table) permettent de changer ce comportement).
-* Des clés primaires (ID) sont ajoutées automatiquement ([un autre champ peut-être défini comme clé primaire avec l'option `primary_key=True`](https://docs.djangoproject.com/en/4.1/topics/db/models/#field-options)).
+* Les noms de tables sont générés automatiquement en combinant le nom de l'application (`developer`) et le nom du modèle en minuscules – `developer` et `task` (Les [meta-options du modèle](https://docs.djangoproject.com/en/6.1/ref/models/options/#db-table) permettent de changer ce comportement).
+* Des clés primaires (ID) sont ajoutées automatiquement ([un autre champ peut-être défini comme clé primaire avec l'option `primary_key=True`](https://docs.djangoproject.com/en/6.1/topics/db/models/#field-options)).
 * Par convention, Django ajoute `_id` au nom de champ de la clé étrangère (et oui, vous pouvez aussi changer ça).
 * La relation de clé étrangère est rendue explicite par une contrainte `FOREIGN KEY`.
 * Ce que vous voyez est adapté à la base de données que vous utilisez. Ainsi, des champs spécifiques à celle-ci comme `auto_increment` (MySQL), `serial` (PostgreSQL) ou `integer primary key autoincrement` (SQLite) sont gérés pour vous automatiquement. Tout comme pour les guillemets autour des noms de champs (simples ou doubles).
@@ -214,7 +214,7 @@ Nous utilisons celle-ci au lieu de simplement taper « python », parce que `man
 
 📃 Notez que cette API est utilisée plus loin pour la manipulation des modèles. La maîtrise de celle-ci est donc essentiel pour le développement d'application Web avec Django ! ⚠️
 
-Une fois dans le shell, explorez [l'api de base de donnée](https://docs.djangoproject.com/fr/4.1/topics/db/queries/) 📖.
+Une fois dans le shell, explorez [l'api de base de donnée](https://docs.djangoproject.com/fr/6.1/topics/db/queries/) 📖.
 
 ``` python showLineNumbers=false frame="none"
 >>> from developer.models import Developer, Task
@@ -224,8 +224,8 @@ Une fois dans le shell, explorez [l'api de base de donnée](https://docs.djangop
 
 On obtient un _QuerySet_ en utilisant le _Manager_ du modèle. Chaque modèle a au moins un Manager ; il s'appelle _objects_ par défaut.
 
-* [QuerySet](https://docs.djangoproject.com/fr/4.1/ref/models/querysets/#django.db.models.query.QuerySet) 📖
-* [Manager](https://docs.djangoproject.com/fr/4.1/topics/db/managers/#django.db.models.Manager) 📖
+* [QuerySet](https://docs.djangoproject.com/fr/6.1/ref/models/querysets/#django.db.models.query.QuerySet) 📖
+* [Manager](https://docs.djangoproject.com/fr/6.1/topics/db/managers/#django.db.models.Manager) 📖
 
 Ici, le QuerySet est vide puisqu'aucun élément n'a été créé.
 
@@ -312,7 +312,7 @@ Continuons sur notre lancée
 >>> jlc.tasks.create(title='cours Odoo', description='Faire le cours sur Odoo')
 ```
 
-Si vous avez lu le tuto [ici](https://docs.djangoproject.com/fr/4.1/intro/tutorial02/) vous avez pu remarquer que nous utilisons `tasks` plutôt que `task_set`. Cela nous est possible puisque nous avons défini le paramètre `relative_name` dans notre modèle `Task`.
+Si vous avez lu le tuto [ici](https://docs.djangoproject.com/fr/6.1/intro/tutorial02/) vous avez pu remarquer que nous utilisons `tasks` plutôt que `task_set`. Cela nous est possible puisque nous avons défini le paramètre `relative_name` dans notre modèle `Task`.
 
 ``` python  showLineNumbers=false frame="none"
 >>> jlc.tasks.all()   
@@ -330,5 +330,5 @@ Si vous avez lu le tuto [ici](https://docs.djangoproject.com/fr/4.1/intro/tutori
 
 ##### Toujours plus d'information 📖 :
 
-* [Recherche dans les champs](https://docs.djangoproject.com/fr/4.1/topics/db/queries/#field-lookups-intro).
-* [Référence des objets liés](https://docs.djangoproject.com/fr/4.1/ref/models/relations/).
+* [Recherche dans les champs](https://docs.djangoproject.com/fr/6.1/topics/db/queries/#field-lookups-intro).
+* [Référence des objets liés](https://docs.djangoproject.com/fr/6.1/ref/models/relations/).
