@@ -87,8 +87,9 @@ urlpatterns = [
 
 L'étape suivante est de faire pointer la configuration d'URL racine vers le module `developer.urls`. Dans `mproject/urls.py`, ajoutez une importation `django.urls.include` et insérez un appel à `include()` dans la liste `urlpatterns`, ce qui donnera :
 
-``` python showLineNumbers=true title="mproject/urls.py"
+``` python showLineNumbers=true title="mproject/urls.py" ins={3,6} del={2}
 from django.contrib import admin
+from django.urls import path
 from django.urls import include, path
 
 urlpatterns = [
