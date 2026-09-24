@@ -50,7 +50,13 @@ class Developer(models.Model):
 class Task(models.Model):
     title = models.CharField(max_length=100, unique=True)
     description = models.TextField()
-    assignee = models.ForeignKey(Developer, related_name="tasks", on_delete=models.CASCADE, null=True, verbose_name="assignee")
+    assignee = models.ForeignKey(
+        Developer,
+        related_name="tasks",
+        on_delete=models.CASCADE,
+        null=True,
+        verbose_name="assignee",
+    )
 ```
 
 * Ici, chaque modèle est représenté par une classe qui hérite de `django.db.models.Model`. Chaque modèle possède des variables de classe, chacune d'entre elles représentant un champ de la base de données pour ce modèle. (En python, l'héritage se fait en mettant le modèle parent entre parenthèse. En java, il se fait avec le mot clé `extends`.)
@@ -95,16 +101,16 @@ Rien ne s'est passé, en réalité, il faut d'abord "installer" l'application de
 Pour inclure l'application dans notre projet, nous avons besoin d'ajouter une référence à sa classe de configuration dans le réglage `INSTALLED_APPS` présent dans le fichier `settings.py`. La classe `DeveloperConfig` se trouve dans le fichier `developer/apps.py`, ce qui signifie que son chemin pointé est `developer.apps.DeveloperConfig`. Modifiez le fichier `mproject/settings.py` et ajoutez ce chemin pointé au réglage `INSTALLED_APPS`. Il doit ressembler à ceci :
 
 ``` python showLineNumbers=false frame="none" ins={9, 10} title="mproject/settings.py"
-  INSTALLED_APPS = [
-      'django.contrib.admin',
-      'django.contrib.auth',
-      'django.contrib.contenttypes',
-      'django.contrib.sessions',
-      'django.contrib.messages',
-      'django.contrib.staticfiles',
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
   
-  # My apps
-      'developer.apps.DeveloperConfig', 
+    # My apps
+    'developer.apps.DeveloperConfig',
 ```
 
 ##### Commande `makemigrations`
@@ -265,21 +271,26 @@ Continuons d'explorer
 
 Une seconde. `<Developer: Developer object (1)>` n'est pas une représentation très utile de cet objet. On va arranger cela en éditant le modèle `Developer` (dans le fichier developer/models.py) et en ajoutant une méthode `__str__()` à `Developer` et à `Task`:
 
-``` python showLineNumbers=true frame="none" ins={5,6, 13, 14}
-  class Developer(models.Model):
-      first_name = models.CharField("first name", max_length=200)
-      last_name = models.CharField(max_length=200)
+``` python showLineNumbers=false title="developer/models.py" ins={5,6,18,19}
+class Developer(models.Model):
+    first_name = models.CharField("first name", max_length=200)
+    last_name = models.CharField(max_length=200)
   
-      def __str__(self):
-          return f"{self.first_name} {self.last_name}"
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
   
-  class Task(models.Model):
-      title = models.CharField(max_length=100, unique=True)
-      description = models.TextField()
-      assignee = models.ForeignKey(Developer, related_name="tasks", on_delete=models.CASCADE, null=True, verbose_name="assignee")
-  
-      def __str__(self):
-          return f"{self.title} ({self.description})"
+class Task(models.Model):
+    title = models.CharField(max_length=100, unique=True)
+    description = models.TextField()
+    assignee = models.ForeignKey(
+        Developer,
+        related_name="tasks",
+        on_delete=models.CASCADE,
+        null=True,
+        verbose_name="assignee",
+    )
+    def __str__(self):
+        return f"{self.title} ({self.description})"
 ```
 
 <Card title="Rappel" icon="seti:python">
