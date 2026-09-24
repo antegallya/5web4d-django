@@ -18,7 +18,7 @@ Ajoutez ce morceau de code dans le gabarit `index.html`
 
 ``` html showLineNumbers=false title="developer/templates/developer/index.html" ins={5-13}
    {% else %}
-       <p><strong>Il n'y a aucune dévelopeur enregistré !</strong>/p>
+       <p><strong>Il n'y a aucun développeur enregistré !</strong>/p>
    {% endif %}
   
    <form action="{% url 'developer:create' %}" method="post"> 
@@ -74,7 +74,7 @@ def create(request):
     return HttpResponseRedirect(reverse('developer:index'))
 ```
 
-Ce code contient quelques points encore non abordés dans ce tutoriel :
+Ce code contient quelques points encore non abordés dans ce tutoriel :
 
 `request.POST` est un objet similaire à un dictionnaire qui vous permet d’accéder aux données envoyées par leurs clés. Dans ce cas, `request.POST['first_name']` et `request.POST['last_name']` renvoient le prénom et nom du développeur sous forme d’une chaîne de caractères. Les valeurs dans `request.POST` sont toujours des chaînes de caractères. Pensez donc à réaliser une transformation si le type de votre entrée n'est pas de nature `string`.
 
@@ -84,7 +84,7 @@ En Python vous pouvez convertir une chaîne de caractère en un entier grâce à
 
 * Notez que Django dispose aussi de `request.GET` pour accéder aux données GET de la même manière – mais nous utilisons explicitement `request.POST` dans notre code, pour s’assurer que les données ne sont modifiées que par des requêtes POST.
 
-* Après la création d'un développeur, le code renvoie une `HttpResponseRedirect` plutôt qu’une `HttpResponse` normale. `HttpResponseRedirect` prend un seul paramètre : l’URL vers laquelle l’utilisateur va être redirigé (voir le point suivant pour la manière de construire cette URL dans ce cas).
+* Après la création d'un développeur, le code renvoie une `HttpResponseRedirect` plutôt qu’une `HttpResponse` normale. `HttpResponseRedirect` prend un seul paramètre : l’URL vers laquelle l’utilisateur va être redirigé (voir le point suivant pour la manière de construire cette URL dans ce cas).
 
 * Comme le commentaire Python l’indique, vous devez systématiquement renvoyer une HttpResponseRedirect après avoir correctement traité les données POST. Ceci n’est pas valable uniquement avec Django, c’est une bonne pratique du développement Web.
 
@@ -180,7 +180,7 @@ Notez que nous n'utilisons plus l'instruction `request.POST['xxx']` pour récup�
 #### Un formulaire DRY
 
 <Aside type="danger" title="Non respect du principe DRY 💩" >
-Vous l'avez peut-être remarqué, mais dans le modèle, les champs avaient une longueur de 200 caractères. Dans le formulaire de 100. Ce type d'incohérence apparaît lorsque nous oublions le principe DRY.
+Vous l'avez peut-être remarqué, mais dans le modèle, les champs avaient une longueur de 200 caractères, contre 100 dans le formulaire. Ce type d'incohérence apparaît lorsque nous oublions le principe DRY.
 </Aside>
 
 Django a prévu une meilleure manière de procéder afin de créer un formulaire sur base d'un modèle.

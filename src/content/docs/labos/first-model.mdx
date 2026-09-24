@@ -269,7 +269,7 @@ Continuons d'explorer
 <QuerySet [<Developer: Developer object (1)>, <Developer: Developer object (2)>]>
 ```
 
-Une seconde. `<Developer: Developer object (1)>` n'est pas une représentation très utile de cet objet. On va arranger cela en éditant le modèle `Developer` (dans le fichier developer/models.py) et en ajoutant une méthode `__str__()` à `Developer` et à `Task`:
+Une seconde. `<Developer: Developer object (1)>` n'est pas une représentation très utile de cet objet. On va arranger cela en éditant le modèle `Developer` (dans le fichier `developer/models.py`) et en ajoutant une méthode `__str__()` à `Developer` et à `Task`:
 
 ``` python showLineNumbers=false title="developer/models.py" ins={5,6,18,19}
 class Developer(models.Model):
