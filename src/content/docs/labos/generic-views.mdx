@@ -50,23 +50,19 @@ La vue générique `DetailView` s'attend à ce que la clé primaire capturée da
 
 Nous l'avions vu, path prend en deuxième paramètre une fonction vue. La transformation de la vue générique vers une vue fonction se fait grâce à l'appel à la méthode `as_view()`.
 
-``` python showLineNumbers=false title="developer.urls.py" ins={1,8} del={7}
-  from .views import DevDetailVue
-  
-  #...
-  
-  urlpatterns = [
-      path('', views.index, name='index'),
-      path('<int:developer_id>/', views.detail, name='detail'),
-      path('<int:pk>/', DevDetailVue.as_view(), name='detail'),
-      path('create/', views.create, name='create'),
-  ]
+``` python showLineNumbers=false title="developer/urls.py" ins={4} del={3}
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('<int:developer_id>/', views.detail, name='detail'),
+    path('<int:pk>/', views.DevDetailVue.as_view(), name='detail'),
+    path('create/', views.create, name='create'),
+]
 ```
 
 <Tabs>
 <TabItem label="Question">
 <Aside type="caution" title="Question">
-Pourquoi y a-t-il les parenthèses après `DevDetailVue.as_view()` et pas après `views.detail` ?
+Pourquoi y a-t-il les parenthèses après `views.DevDetailVue.as_view()` et pas après `views.detail` ?
 </Aside>
 
 </TabItem>
