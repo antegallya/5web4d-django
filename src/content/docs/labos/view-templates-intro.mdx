@@ -254,13 +254,14 @@ urlpatterns = [
 
 Modifiez maintenant les liens du gabarit `developer/index.html` pour qu'elle pointe vers la vue « detail » à l'espace de nom correspondant.
 
-``` html showLineNumbers=false title="developer/index.html"
+``` html showLineNumbers=false title="developer/index.html" ins={7} del={6}
 #...
 {% if developers %}
 <ul>
     {% for dev in developers %}
     {#<li>{{ dev.first_name }}</li>#}
-    <li><a href="{% url 'developer:detail' dev.id %}">{{ dev.first_name }}</a></li> <!--👈 ajout de "developer:" -->
+    <li><a href='/developer/{{ dev.id }}'>{{ dev.first_name }}</a></li>
+    <li><a href="{% url 'developer:detail' dev.id %}">{{ dev.first_name }}</a></li>
     {% endfor %}
 </ul>
 #...
