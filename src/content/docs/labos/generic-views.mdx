@@ -23,19 +23,21 @@ Nous allons convertir notre application de gestion de projet pour qu'elle utilis
 Dans le fichier `developer/views.py`, créez la classe `DevDetailVue` et supprimez la
 fonction `detail()`.
 
-``` python showLineNumbers=false title="developer/views.py" ins={1,5,6,7} del={9,10,11,12}
-  from django.views.generic import DetailView 
-  
-  #...
-  
-  class DevDetailVue(DetailView): 
-      model = Developer 
-      template_name = 'developer/detail.html'
-  
-  def detail(request, developer_id):
-      #developer = Developer.objects.get(pk=developer_id)
-      developer = get_object_or_404(Developer, pk=developer_id)
-      return render(request, 'developer/detail.html', {'developer': developer})
+``` python showLineNumbers=false title="developer/views.py" ins={2,12-14} del={6-8}
+from django.urls import reverse
+from django.views.generic import DetailView
+
+#...
+
+def detail(request, developer_id):
+    developer = get_object_or_404(Developer, pk=developer_id)
+    return render(request, 'developer/detail.html', {'developer': developer})
+
+#...
+
+class DevDetailVue(DetailView):
+    model = Developer
+    template_name = 'developer/detail.html'
 ```
 
 * Nous utilisons ici la vue générique : `DetailView`. Cette vue permet l'abstraction des concepts vus pour afficher une page détaillée pour un type particulier d'objet (ici `Developer`).
@@ -80,15 +82,15 @@ Cela va se compliquer un petit peu. En effet, nous avons un liste des développe
 Commençons par créer notre classe comme si nous n'avions pas de formulaire.
 
 ```python showLineNumbers=false title="developer/views.py" ins={2,6,7,8,9} del={1}
-  from django.views.generic import DetailView
-  from django.views.generic import DetailView, ListView
-  
-  #...
-  
-  class IndexView(ListView): 
-      model = Developer 
-      template_name = "developer/index.html"
-      context_object_name = 'developers'
+from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
+
+#...
+
+class IndexView(ListView):
+    model = Developer
+    template_name = "developer/index.html"
+    context_object_name = 'developers'
 ```
 
 * Nous créons une nouvelle classe qui hérite de `ListView`.
@@ -101,29 +103,24 @@ Commençons par créer notre classe comme si nous n'avions pas de formulaire.
 Nous avançons, mais nous n'avons pas ajouté notre formulaire dans le contexte. Pour cela, il est nécessaire de réécrire la
 méthode `get_context_data()`.
 
-```python showLineNumbers=false title="developer/views.py" del={5,6,7,8,9,10,11} ins={19,20,21,22}
-  from django.views.generic import DetailView, ListView
-  
-  #...
-  
-  def index(request):
-      context = {
-          'developers': Developer.objects.all(),
-          'form': DeveloperForm
-      }
-  
-      return render(request, 'developer/index.html', context)
-  
-  class IndexView(ListView):
-      model = Developer
-      template_name = "developer/index.html"
-      context_object_name = 'developers'
-  
-  
-      def get_context_data(self, **kwargs): 
-          context = super(IndexView, self).get_context_data(**kwargs)
-          context['form'] = DeveloperForm 
-          return context 
+```python showLineNumbers=false title="developer/views.py" del={1-7} ins={14-17}
+def index(request):
+    context = {
+        'developers': Developer.objects.all(),
+        'form': DeveloperForm
+    }
+
+    return render(request, 'developer/index.html', context)
+
+class IndexView(ListView):
+    model = Developer
+    template_name = "developer/index.html"
+    context_object_name = 'developers'
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['form'] = DeveloperForm
+        return context
 ```
 
 <Card title="Héritage en Python" icon="seti:python">
@@ -140,19 +137,13 @@ Ainsi,
 
 Il est maintenant temps d'associer une url à notre nouvelle classe vue. Rien de plus simple, vous avez fait quelque chose de très similaire avec `DevDetailView`.
 
-``` python showLineNumbers=false title="developer/urls.py" del={2,8} ins={3,9}
-  #...
- from .views import DevDetailVue
-  from .views import DevDetailVue, IndexView
-  
-  #...
-
-  urlpatterns = [
-      path('', views.index, name='index'),
-      path('', IndexView.as_view(), name='index'),
-      path('<int:pk>/', DevDetailVue.as_view(), name='detail'),    
-      path('create/', views.create, name='create'),
-  ]
+``` python showLineNumbers=false title="developer/urls.py" del={2} ins={3}
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('', views.IndexView.as_view(), name='index'),
+    path('<int:pk>/', DevDetailVue.as_view(), name='detail'),
+    path('create/', views.create, name='create'),
+]
 ```
 
 ## Vue générique et Mixins
