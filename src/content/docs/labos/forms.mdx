@@ -38,7 +38,7 @@ Un résumé rapide :
 
 * Ce gabarit affiche maintenant un formulaire avec deux champs texte et un bouton de création. Notez que dans ce formulaire, nous avons nommé les deux entrées `first_name` et `last_name`. Ce sont les concepts de base des formulaires HTML.
 
-* Nous avons défini `{% url 'developer:create' %}` comme attribut action du formulaire, et nous avons précisé `method="post"`. L’utilisation de `method="post"` (par opposition à `method="get"`) est très importante, puisque le fait de valider ce formulaire va entraîner des modifications de données sur le serveur. À chaque fois qu’un formulaire modifie des données sur le serveur, vous devez utiliser `method="post"`. Cela ne concerne pas uniquement Django ; c’est une bonne pratique à adopter en tant que développeur Web.
+* Nous avons défini `{% url 'developer:create' %}` comme attribut action du formulaire, et nous avons précisé `method="post"`. L’utilisation de `method="post"` (par opposition à `method="get"`) est très importante, puisque le fait de valider ce formulaire va entraîner des modifications de données sur le serveur. À chaque fois qu’un formulaire modifie des données sur le serveur, vous devez utiliser `method="post"`. Cela ne concerne pas uniquement Django ; c’est une bonne pratique à adopter en tant que développeur Web.
 
 * Comme nous créons un formulaire POST (qui modifie potentiellement des données), il faut se préoccuper des attaques inter-sites. Heureusement, Django met à notre disposition un moyen simple pour s’en protéger. En bref, tous les formulaires POST destinés à des URL internes doivent utiliser la balise de gabarit `{% csrf_token %}`.
 
